@@ -1,17 +1,3 @@
----
-title: "韦恩图"
-author: "Xiaojun Wang"
-date: "2019年4月11日"
-output: html_document
----
-
-之所以要说一下Venn图，是引文在一篇文献^1^中看到一张漂亮的Venn图（如下）：圆形，再加上重叠区域形状、边缘的缝隙使得它看起来想一个平面的足球。看到如此漂亮的图片，不免就想知道它是如何做出来的，但是文献中却没有提及，而且我利用各种搜图引擎也没找出类似的图片。如果你知道欢迎留言或者邮箱（wxj524@163.com）告诉我一下，不胜感激。
-
-![](image/类似于足球的VennDiagram.png)
-
-虽然没有找到类似的图片，但是却让我重温了了一下R中是如何作Venn图的。
-
-## VennDiagram包
 ```{r warning=FALSE, message=FALSE}
 library(VennDiagram)
 venn.plot <- draw.quad.venn(
@@ -83,8 +69,6 @@ venn.plot <- draw.quintuple.venn(
 )
 ```
 
-`VennDiagram`包作图还是比较好看的，但是这样来给参数赋值一看就是个体力活啊。如果直接有相应的数据还可以像下面这样作图。
-
 ```{r}
 A <- sample(1:1000, 400, replace = FALSE)
 B <- sample(1:1000, 600, replace = FALSE)
@@ -98,20 +82,3 @@ venn.diagram(x = list(A = A, B = B, C = C, E = E, D = D),
              fill = c("dodgerblue", "goldenrod1", "darkorange1", "seagreen3", "orchid3"),
              alpha = 0.3, label.col = "black", cex = 0.5, margin = 0.05, lwd = 1)
 ```
-
-![](/Users/JerryWang/Downloads/tem.png)
-
-## 其他Venn图包
-
-
-- venn
-- bvenn
-- eVenn
-- eulerr
-- Venneuler
-- Vennerable
-- colorfulVennPlot
-
-1. Santos A, Tsafou K, Stolte C, et al. Comprehensive comparison of large-scale tissue expression datasets[J]. PeerJ, 2015, 3: e1054.
-2. VennDiagram包作图的例子来源于https://rdrr.io/cran/VennDiagram/
-
