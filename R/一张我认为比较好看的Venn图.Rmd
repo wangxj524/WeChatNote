@@ -1,0 +1,117 @@
+---
+title: "韦恩图"
+author: "Xiaojun Wang"
+date: "2019年4月11日"
+output: html_document
+---
+
+之所以要说一下Venn图，是引文在一篇文献^1^中看到一张漂亮的Venn图（如下）：圆形，再加上重叠区域形状、边缘的缝隙使得它看起来想一个平面的足球。看到如此漂亮的图片，不免就想知道它是如何做出来的，但是文献中却没有提及，而且我利用各种搜图引擎也没找出类似的图片。如果你知道欢迎留言或者邮箱（wxj524@163.com）告诉我一下，不胜感激。
+
+![](image/类似于足球的VennDiagram.png)
+
+虽然没有找到类似的图片，但是却让我重温了了一下R中是如何作Venn图的。
+
+## VennDiagram包
+```{r warning=FALSE, message=FALSE}
+library(VennDiagram)
+venn.plot <- draw.quad.venn(
+    area1 = 72,
+    area2 = 86,
+    area3 = 48,
+    area4 = 52,
+    n12 = 43,
+    n13 = 28,
+    n14 = 31,
+    n23 = 30,
+    n24 = 28,
+    n34 = 22,
+    n123 = 17,
+    n124 = 16,
+    n134 = 12,
+    n234 = 11,
+    n1234 = 7,
+    category = c("A", "B", "C", "D"),
+    fill = c("orange", "red", "green", "blue"),
+    lty = "dashed",
+    cex = 2,
+    cat.cex = 2,
+    cat.col = c("orange", "red", "green", "blue")
+)
+```
+
+```{r}
+venn.plot <- draw.quintuple.venn(
+    area1 = 301,
+    area2 = 321,
+    area3 = 311,
+    area4 = 321,
+    area5 = 301,
+    n12 = 188,
+    n13 = 191,
+    n14 = 184,
+    n15 = 177,
+    n23 = 194,
+    n24 = 197,
+    n25 = 190,
+    n34 = 190,
+    n35 = 173,
+    n45 = 186,
+    n123 = 112,
+    n124 = 108,
+    n125 = 108,
+    n134 = 111,
+    n135 = 104,
+    n145 = 104,
+    n234 = 111,
+    n235 = 107,
+    n245 = 110,
+    n345 = 100,
+    n1234 = 61,
+    n1235 = 60,
+    n1245 = 59,
+    n1345 = 58,
+    n2345 = 57,
+    n12345 = 31,
+    category = c("A", "B", "C", "D", "E"),
+    fill = c("dodgerblue", "goldenrod1", "darkorange1", "seagreen3", "orchid3"),
+    cat.col = c("dodgerblue", "goldenrod1", "darkorange1", "seagreen3", "orchid3"),
+    cat.cex = 2,
+    margin = 0.05,
+    cex = c(1.5, 1.5, 1.5, 1.5, 1.5, 1, 0.8, 1, 0.8, 1, 0.8, 1, 0.8, 1, 0.8, 
+            1, 0.55, 1, 0.55, 1, 0.55, 1, 0.55, 1, 0.55, 1, 1, 1, 1, 1, 1.5),
+    ind = TRUE
+)
+```
+
+`VennDiagram`包作图还是比较好看的，但是这样来给参数赋值一看就是个体力活啊。如果直接有相应的数据还可以像下面这样作图。
+
+```{r}
+A <- sample(1:1000, 400, replace = FALSE)
+B <- sample(1:1000, 600, replace = FALSE)
+C <- sample(1:1000, 350, replace = FALSE)
+D <- sample(1:1000, 550, replace = FALSE)
+E <- sample(1:1000, 550, replace = FALSE)
+
+venn.diagram(x = list(A = A, B = B, C = C, E = E, D = D),
+             filename = "tem.png",
+             height = 850, width = 850, resolution =300, imagetype="png",
+             fill = c("dodgerblue", "goldenrod1", "darkorange1", "seagreen3", "orchid3"),
+             alpha = 0.3, label.col = "black", cex = 0.5, margin = 0.05, lwd = 1)
+```
+
+![](/Users/JerryWang/Downloads/tem.png)
+
+## 其他Venn图包
+
+
+- venn
+- bvenn
+- eVenn
+- eulerr
+- Venneuler
+- Vennerable
+- colorfulVennPlot
+
+1. Santos A, Tsafou K, Stolte C, et al. Comprehensive comparison of large-scale tissue expression datasets[J]. PeerJ, 2015, 3: e1054.
+2. VennDiagram包作图的例子来源于https://rdrr.io/cran/VennDiagram/
+
